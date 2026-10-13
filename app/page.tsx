@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   ArrowUp,
   ArrowUpRight,
@@ -12,7 +12,6 @@ import {
   Copy,
   Download,
   ExternalLink,
-  Github,
   GraduationCap,
   MapPin,
   Menu,
@@ -56,13 +55,52 @@ interface Project {
   liveUrl?: string
 }
 
-// Swap githubUrl for the exact repo (e.g. `${GITHUB_PROFILE}/DeleGate`) and add liveUrl where a demo exists.
 const projects: Project[] = [
-  { number: '01', title: 'DeleGate', subtitle: 'Project & Production Tracker', description: 'A focused operations workspace for teams that need clarity from brief to delivery.', tech: ['Python', 'Django', 'SQLite / PostgreSQL'], highlights: ['Workflow coordination', 'Role-based authentication', 'Responsive management dashboards'], githubUrl: GITHUB_PROFILE },
-  { number: '02', title: 'StashRaid', subtitle: 'Android Study & Notes App', description: 'An offline-first study companion built to make revision fast, searchable, and frictionless.', tech: ['Kotlin', 'Android Studio', 'XML'], highlights: ['MVP architecture', 'Offline persistence', 'Rapid revision indexing'], githubUrl: GITHUB_PROFILE },
-  { number: '03', title: 'WildFEAST', subtitle: 'Online Canteen Ordering System', description: 'A dual-portal ordering experience connecting campus merchants and hungry students.', tech: ['Java', 'JavaFX', 'MySQL'], highlights: ['Merchant / student portals', 'Relational database schema', 'Live JDBC order queues'], githubUrl: GITHUB_PROFILE },
-  { number: '04', title: 'Project Equinox', subtitle: 'SeasonFuzzy · Systems Simulation Engine', description: 'A visual simulation engine exploring how fuzzy logic can model changing weather systems.', tech: ['C#', 'Windows Forms'], highlights: ['Multi-variable weather dynamics', 'Fuzzy logic simulation', 'Real-time visualization'], githubUrl: GITHUB_PROFILE },
-  { number: '05', title: 'Encore & Revelation', subtitle: '2D Interactive Games', description: 'A pair of expressive game experiments where sound, movement, and world-building meet.', tech: ['Godot Engine', 'GDScript'], highlights: ['Rhythm-synchronized mechanics', 'Tilemap collision physics', 'Custom level editors'], githubUrl: GITHUB_PROFILE },
+  { 
+    number: '01', 
+    title: 'DeleGate', 
+    subtitle: 'Project & Production Tracker', 
+    description: 'A focused operations workspace for teams that need clarity from brief to delivery.', 
+    tech: ['Python', 'Django', 'SQLite / PostgreSQL'], 
+    highlights: ['Workflow coordination', 'Role-based authentication', 'Responsive management dashboards'], 
+    githubUrl: GITHUB_PROFILE 
+  },
+  { 
+    number: '02', 
+    title: 'StashRaid', 
+    subtitle: 'Android Study & Notes App', 
+    description: 'An offline-first study companion built to make revision fast, searchable, and frictionless.', 
+    tech: ['Kotlin', 'Android Studio', 'XML'], 
+    highlights: ['MVP architecture', 'Offline persistence', 'Rapid revision indexing'], 
+    githubUrl: GITHUB_PROFILE 
+  },
+  { 
+    number: '03', 
+    title: 'WildFEAST', 
+    subtitle: 'Online Canteen Ordering System', 
+    description: 'A dual-portal ordering experience connecting campus merchants and hungry students.', 
+    tech: ['Java', 'JavaFX', 'MySQL'], 
+    highlights: ['Merchant / student portals', 'Relational database schema', 'Live JDBC order queues'], 
+    githubUrl: GITHUB_PROFILE 
+  },
+  { 
+    number: '04', 
+    title: 'Project Equinox', 
+    subtitle: 'SeasonFuzzy · Systems Simulation Engine', 
+    description: 'A visual simulation engine exploring how fuzzy logic can model changing weather systems.', 
+    tech: ['C#', 'Windows Forms'], 
+    highlights: ['Multi-variable weather dynamics', 'Fuzzy logic simulation', 'Real-time visualization'], 
+    githubUrl: GITHUB_PROFILE 
+  },
+  { 
+    number: '05', 
+    title: 'Encore & Revelation', 
+    subtitle: '2D Interactive Games', 
+    description: 'A pair of expressive game experiments where sound, movement, and world-building meet.', 
+    tech: ['Godot Engine', 'GDScript'], 
+    highlights: ['Rhythm-synchronized mechanics', 'Tilemap collision physics', 'Custom level editors'], 
+    githubUrl: GITHUB_PROFILE 
+  },
 ]
 
 const leadership = [
@@ -77,23 +115,6 @@ const honors = [
   ['1st Place', 'Division Science, Technology, and Math Fair · LIKHA 2022'],
   ['2nd Place', 'Regional Science, Technology, and Math Fair · LIKHA 2022'],
   ['3rd Place', 'National Virtual Robotics Competition · 2021'],
-]
-
-const terminalLines = [
-  <>
-    <span className="text-slate-600">const</span> <span className="text-cyan-300">location</span> ={' '}
-    <span className="text-amber-300">&quot;Cebu, PH&quot;</span>
-  </>,
-  <>
-    <span className="text-slate-600">const</span> <span className="text-cyan-300">focus</span> = [
-  </>,
-  <span key="focus" className="pl-5 text-amber-300">
-    &quot;build&quot;, &quot;learn&quot;, &quot;ship&quot;
-  </span>,
-  <>]</>,
-  <>&nbsp;</>,
-  <span key="c1" className="text-slate-600">{'// always curious,'}</span>,
-  <span key="c2" className="text-slate-600">{'// always iterating'}</span>,
 ]
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
@@ -123,7 +144,6 @@ function CopyEmailButton({ variant }: { variant: 'icon' | 'pill' }) {
       if (timer.current) clearTimeout(timer.current)
       timer.current = setTimeout(() => setCopied(false), 2000)
     } catch {
-      // Clipboard unavailable (insecure context / denied): fall back to the mail client.
       window.location.href = `mailto:${EMAIL}`
     }
   }
@@ -166,7 +186,6 @@ export default function Page() {
 
   const closeMenu = () => setMobileMenuOpen(false)
 
-  // Smooth anchor scrolling (respects reduced-motion) without needing to touch layout.tsx.
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const root = document.documentElement
@@ -177,7 +196,6 @@ export default function Page() {
     }
   }, [])
 
-  // Close on Escape and lock body scroll while the slide-over is open.
   useEffect(() => {
     if (!mobileMenuOpen) return
     const onKey = (e: KeyboardEvent) => {
@@ -192,7 +210,6 @@ export default function Page() {
     }
   }, [mobileMenuOpen])
 
-  // Reveal the back-to-top button after scrolling past the hero.
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 600)
     onScroll()
@@ -349,17 +366,39 @@ export default function Page() {
                 <span className="ml-auto text-cyan-400">●</span>
               </div>
               <div className="p-5 pt-6 font-mono text-xs leading-6">
-                {terminalLines.map((line, i) => (
-                  <div key={i} className="grid grid-cols-[1.5rem_1fr] gap-3">
-                    <span aria-hidden="true" className="select-none text-right text-[10px] leading-6 text-slate-700">{i + 1}</span>
-                    <span>{line}</span>
-                  </div>
-                ))}
                 <div className="grid grid-cols-[1.5rem_1fr] gap-3">
-                  <span aria-hidden="true" className="select-none text-right text-[10px] leading-6 text-slate-700">{terminalLines.length + 1}</span>
+                  <span className="text-right text-[10px] leading-6 text-slate-700">1</span>
+                  <span><span className="text-slate-600">const</span> <span className="text-cyan-300">location</span> = <span className="text-amber-300">&quot;Cebu, PH&quot;</span></span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">2</span>
+                  <span><span className="text-slate-600">const</span> <span className="text-cyan-300">focus</span> = [</span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">3</span>
+                  <span className="pl-5 text-amber-300">&quot;build&quot;, &quot;learn&quot;, &quot;ship&quot;</span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">4</span>
+                  <span>]</span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">5</span>
+                  <span>&nbsp;</span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">6</span>
+                  <span className="text-slate-600">// always curious,</span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">7</span>
+                  <span className="text-slate-600">// always iterating</span>
+                </div>
+                <div className="grid grid-cols-[1.5rem_1fr] gap-3">
+                  <span className="text-right text-[10px] leading-6 text-slate-700">8</span>
                   <span className="flex items-center">
                     <span className="text-cyan-400">&gt;</span>
-                    <span className="inline-block w-2 h-4 bg-cyan-400 animate-pulse ml-1" />
+                    <span className="ml-1 inline-block h-4 w-2 animate-pulse bg-cyan-400" />
                   </span>
                 </div>
               </div>
@@ -418,7 +457,7 @@ export default function Page() {
                             aria-label={`${project.title} source code on GitHub`}
                             className="rounded-md p-1 text-slate-500 transition-all hover:scale-110 hover:text-cyan-300 focus-visible:text-cyan-300"
                           >
-                            <Github size={17} />
+                            <Code2 size={17} />
                           </a>
                         )}
                         {project.liveUrl && (
@@ -538,7 +577,7 @@ export default function Page() {
 
       <footer className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p className="font-mono text-[11px] text-slate-600">© {new Date().getFullYear()} Joseph Xeno O. Banzon</p>
+          <p className="font-mono text-[11px] text-slate-600">© 2026 Joseph Xeno O. Banzon</p>
           <div className="flex items-center gap-5">
             <a href={GITHUB_PROFILE} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-slate-500 transition-colors hover:text-cyan-300">
               <Code2 size={16} />
