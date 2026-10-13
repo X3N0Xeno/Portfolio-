@@ -402,4 +402,170 @@ export default function Page() {
                 }`}
               >
                 <div
-             
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cyan-400/[0.07] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                <div className="relative">
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="font-mono text-xs text-cyan-400">{project.number}</span>
+                    {(project.githubUrl || project.liveUrl) && (
+                      <div className="flex items-center gap-3">
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`${project.title} source code on GitHub`}
+                            className="rounded-md p-1 text-slate-500 transition-all hover:scale-110 hover:text-cyan-300 focus-visible:text-cyan-300"
+                          >
+                            <Github size={17} />
+                          </a>
+                        )}
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`${project.title} live demo`}
+                            className="rounded-md p-1 text-slate-500 transition-all hover:scale-110 hover:text-cyan-300 focus-visible:text-cyan-300"
+                          >
+                            <ExternalLink size={17} />
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <h3 className="mt-9 text-2xl font-medium text-white">{project.title}</h3>
+                  <p className="mt-1 font-mono text-xs text-cyan-400/80">{project.subtitle}</p>
+                  <p className="mt-5 max-w-xl text-sm leading-6 text-slate-400">{project.description}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className="rounded-full bg-cyan-400/10 px-2.5 py-1 font-mono text-[10px] text-cyan-300">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <ul className="mt-6 grid grid-cols-1 gap-2 border-t border-white/10 pt-5 text-xs text-slate-400 md:grid-cols-3">
+                    {project.highlights.map((highlight) => (
+                      <li key={highlight} className="flex items-start gap-2">
+                        <span className="mt-1 text-cyan-400">→</span>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience" className="scroll-mt-20 border-t border-white/10 py-24">
+          <div className="grid gap-16 lg:grid-cols-2">
+            <div>
+              <SectionHeading eyebrow="03 / involvement" title="Beyond the code." description="Leadership and community work that shaped how I collaborate, communicate, and show up for a team." />
+              <div className="flex flex-col gap-0">
+                {leadership.map(([date, org, role]) => (
+                  <div key={org} className="grid grid-cols-[100px_1fr] gap-4 border-b border-white/10 py-5 first:border-t">
+                    <span className="font-mono text-[11px] text-cyan-400">{date}</span>
+                    <div>
+                      <h3 className="text-sm font-medium text-slate-200">{org}</h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-500">{role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div id="education" className="scroll-mt-24">
+              <SectionHeading eyebrow="04 / education" title="Where I'm learning." />
+              <div className="flex flex-col gap-4">
+                <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6">
+                  <GraduationCap className="mb-8 text-cyan-400" size={22} />
+                  <h3 className="text-lg text-slate-100">Cebu Institute of Technology – University</h3>
+                  <p className="mt-2 text-sm text-slate-400">BS Computer Science · 2024 – Present</p>
+                  <span className="mt-4 inline-flex rounded-full bg-cyan-400/10 px-2.5 py-1 font-mono text-[10px] text-cyan-300">DOST Scholar</span>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6">
+                  <BookOpen className="mb-8 text-cyan-400" size={22} />
+                  <h3 className="text-lg text-slate-100">CIT-U Senior High School</h3>
+                  <p className="mt-2 text-sm text-slate-400">STEM Track · 2022 – 2024</p>
+                  <span className="mt-4 inline-flex rounded-full bg-white/10 px-2.5 py-1 font-mono text-[10px] text-slate-300">Graduated with Honors</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-white/10 py-24">
+          <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <SectionHeading eyebrow="05 / recognition" title="Milestones along the way." />
+            </div>
+            <div className="grid gap-3">
+              {honors.map(([title, detail]) => (
+                <div key={detail} className="flex items-start gap-4 rounded-lg border border-white/10 bg-white/[0.02] p-4">
+                  <Trophy size={17} className="mt-0.5 shrink-0 text-amber-300" />
+                  <div>
+                    <p className="text-sm font-medium text-slate-200">{title}</p>
+                    <p className="mt-1 text-xs text-slate-500">{detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="scroll-mt-20 border-t border-white/10 py-28 text-center">
+          <Sparkles className="mx-auto mb-6 text-cyan-400" size={22} />
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-400">Have a project in mind?</p>
+          <h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-white md:text-6xl">
+            Let&apos;s make something<br />
+            <span className="text-cyan-400">worth shipping.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-slate-400">
+            Whether it&apos;s a product idea, a systems problem, or a chance to learn together — my inbox is open.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`mailto:${EMAIL}`}
+              className="inline-flex items-center gap-2 rounded-md bg-cyan-400 px-6 py-3.5 font-mono text-xs font-bold text-[#041014] transition-all hover:bg-cyan-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.22)]"
+            >
+              Get in touch <Send size={15} />
+            </a>
+            <CopyEmailButton variant="pill" />
+          </div>
+        </section>
+      </div>
+
+      <footer className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+          <p className="font-mono text-[11px] text-slate-600">© {new Date().getFullYear()} Joseph Xeno O. Banzon</p>
+          <div className="flex items-center gap-5">
+            <a href={GITHUB_PROFILE} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-slate-500 transition-colors hover:text-cyan-300">
+              <Code2 size={16} />
+            </a>
+            <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="text-slate-500 transition-colors hover:text-cyan-300">
+              <BriefcaseBusiness size={16} />
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 font-mono text-[10px] text-slate-400 transition-colors hover:border-cyan-400/40 hover:text-cyan-300"
+            >
+              Email me <ArrowUpRight size={12} />
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      <a
+        href="#top"
+        aria-label="Back to top"
+        tabIndex={showBackToTop ? 0 : -1}
+        className={`fixed bottom-6 right-6 z-30 inline-flex size-10 items-center justify-center rounded-full border border-white/10 bg-[#05070a]/80 text-slate-400 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:text-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.12)] ${
+          showBackToTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+        }`}
+      >
+        <ArrowUp size={16} />
+      </a>
+    </main>
+  )
+}
